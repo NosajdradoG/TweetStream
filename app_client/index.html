@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stream twitter</title>
+</head>
+<style type="text/css">
+	body{
+		width: 50%;
+		padding-left: 25%;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	h1{
+		text-align: center;
+	}
+	ul{
+		list-style: none;
+	}
+</style>
+<body>
+<h1>Stream twitter #Javascript</h1>
+<ul id="tweets"></ul>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+// Connection a socket et affichage des tweets
+  var socket = io.connect('/'),
+      tweets = document.getElementById('tweets');
+      
+  socket.on('tweet', function (data) {
+  	li = document.createElement("li")
+    li.innerHTML = '<table><tr><td><a href="https://twitter.com/' + data.user.name + '/status/' + data.id_str + '" target="_blank"><img src="' + data.user.profile_image_url_https + '"></a></td><td>' + data.text + '</td></tr></table><br><hr><br>';
+    tweets.appendChild(li)
+  });
+</script>
+
+</body>
+</html>
